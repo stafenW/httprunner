@@ -68,7 +68,6 @@ class HttpRunner(object):
         parsed_request_dict["json"] = parsed_request_dict.pop("req_json", {})
 
         # request
-        self.__session = self.__session or HttpSession()
         resp = self.__session.request(method, url, **parsed_request_dict)
         resp_obj = ResponseObject(resp)
 
@@ -146,6 +145,7 @@ class HttpRunner(object):
         """run teststep, teststep maybe a request or referenced testcase"""
         logger.info(f"run step begin: {step.name} >>>>>>")
 
+        self.__session = self.__session or HttpSession()
         if step.request:
             step_data = self.__run_step_request(step)
         elif step.testcase:
